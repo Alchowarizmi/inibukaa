@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bunga-Bunga Bucin 🌸</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #ffe6f0, #e0c3fc);
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      user-select: none;
+    }
+    .flower {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .message {
+      font-size: 1.4em; /* font size kecil buat HP */
+      color: #702963;
+      background: rgba(255,255,255,0.75);
+      padding: 30px 40px;
+      border-radius: 25px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 2s ease;
+      max-width: 95vw;
+      line-height: 1.1;
+    }
+    @media (min-width: 768px) {
+      .message {
+        font-size: 5em;
+      }
+    }
+    .show {
+      opacity: 1;
+    }
+    #openBtn {
+      background: #ffaad4;
+      border: none;
+      color: white;
+      padding: 18px 60px;
+      border-radius: 50px;
+      font-size: 2em;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      user-select: none;
+      transition: background-color 0.3s ease;
+      margin-bottom: 40px;
+    }
+    #openBtn:hover {
+      background: #ff8cc0;
+    }
+  </style>
+</head>
+<body>
+
+<button id="openBtn">Open</button>
+<div class="message" id="msg">Semangat awa cantik 🌷</div>
+
+<audio id="music" loop>
+  <source src="Pretty Little Baby.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  const flowers = ['🌸', '🌺', '🌼'];
+  const openBtn = document.getElementById('openBtn');
+  const msg = document.getElementById('msg');
+  const music = document.getElementById('music');
+  let flowerInterval;
+
+  function createFlower() {
+    const flower = document.createElement('div');
+    flower.classList.add('flower');
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = Math.random() * 100 + 'vw';
+    flower.style.animationDuration = (3 + Math.random() * 3) + 's';
+    flower.style.fontSize = (20 + Math.random() * 30) + 'px';
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 6000);
+  }
+
+  openBtn.addEventListener('click', () => {
+    openBtn.style.display = 'none';
+    msg.classList.add('show');
+    flowerInterval = setInterval(createFlower, 50);
+    music.play().catch(() => {
+      alert('Klik tombol play di browser kalau musik belum menyala ya!');
+    });
+  });
+</script>
+
+</body>
+</html>
